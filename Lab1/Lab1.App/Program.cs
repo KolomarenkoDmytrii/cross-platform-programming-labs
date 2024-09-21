@@ -1,4 +1,7 @@
-﻿namespace Lab1.App
+﻿using System;
+using System.IO;
+
+namespace Lab1.App
 {
     public class Program
     {
@@ -37,9 +40,30 @@
 
         static void Main()
         {
-            Console.WriteLine(IsDnaSequence("agcta"));
-            Console.WriteLine(IsDnaSequence("agcfta"));
-            Console.WriteLine(IsDnaSubsequence("agcta", "gta"));
+            try
+            {
+                string subsequence = "";
+                string sequence = "";
+                using (StreamReader input = new StreamReader("INPUT.TXT"))
+                {
+                    subsequence = input.ReadLine();
+                    sequence = input.ReadLine();
+
+                    if (subsequence == null || sequence == null)
+                        throw new Exception("Could not read the subsequence or sequence string");
+                    }
+
+                using (StreamWriter output = new StreamWriter("OUTPUT.TXT"))
+                {
+                    output.WriteLine(
+                        IsDnaSubsequence(sequence, subsequence) ? "YES" : "NO"
+                    );
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($"An error occured: {exception}");
+            }
         }
     }
 }
