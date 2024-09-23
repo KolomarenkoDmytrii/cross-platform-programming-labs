@@ -38,27 +38,32 @@ namespace Lab1.App
             return count == subsequence.Length;
         }
 
+        public static void WriteAnswer(string inputFilePath, string outputFilePath)
+        {
+            string subsequence = "";
+            string sequence = "";
+            using (StreamReader input = new StreamReader(inputFilePath))
+            {
+                subsequence = input.ReadLine();
+                sequence = input.ReadLine();
+
+                if (subsequence == null || sequence == null)
+                    throw new Exception("Could not read the subsequence or sequence string");
+            }
+
+            using (StreamWriter output = new StreamWriter(outputFilePath))
+            {
+                output.WriteLine(
+                    IsDnaSubsequence(sequence, subsequence) ? "YES" : "NO"
+                );
+            }
+        }
+
         static void Main()
         {
             try
             {
-                string subsequence = "";
-                string sequence = "";
-                using (StreamReader input = new StreamReader("INPUT.TXT"))
-                {
-                    subsequence = input.ReadLine();
-                    sequence = input.ReadLine();
-
-                    if (subsequence == null || sequence == null)
-                        throw new Exception("Could not read the subsequence or sequence string");
-                    }
-
-                using (StreamWriter output = new StreamWriter("OUTPUT.TXT"))
-                {
-                    output.WriteLine(
-                        IsDnaSubsequence(sequence, subsequence) ? "YES" : "NO"
-                    );
-                }
+                WriteAnswer(Path.Combine(".", "INPUT.TXT"), "OUTPUT.TXT");
             }
             catch (Exception exception)
             {
