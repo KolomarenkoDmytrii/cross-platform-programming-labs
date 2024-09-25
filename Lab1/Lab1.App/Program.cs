@@ -40,8 +40,8 @@ namespace Lab1.App
 
         public static void WriteAnswer(string inputFilePath, string outputFilePath)
         {
-            string subsequence = "";
-            string sequence = "";
+            string? subsequence = "";
+            string? sequence = "";
             using (StreamReader input = new StreamReader(inputFilePath))
             {
                 subsequence = input.ReadLine();
@@ -63,7 +63,7 @@ namespace Lab1.App
         {
             try
             {
-                WriteAnswer(Path.Combine(".", "INPUT.TXT"), "OUTPUT.TXT");
+                WriteAnswer("INPUT.TXT", "OUTPUT.TXT");
             }
             catch (Exception exception)
             {

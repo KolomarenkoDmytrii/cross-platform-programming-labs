@@ -5,11 +5,6 @@ namespace Lab1.Test;
 
 public class Tests
 {
-    // [SetUp]
-    // public void Setup()
-    // {
-    // }
-
     [Test]
     [TestCase("agcta")]
     [TestCase("aGcTa")]

@@ -418,3 +418,7 @@ FodyWeavers.xsd
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp,kate,visualstudiocode
+
+# Input and output files
+INPUT.TXT
+OUTPUT.TXT
