@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+Вхідні дані
+Перший рядок вхідного файлу INPUT.TXT містить послідовність s, другий - послідовність t.
+Розмір вхідного файлу вбирається у 256 кілобайт.
+*/
+
+using System;
 using System.IO;
 
 namespace Lab1.App
@@ -42,13 +48,22 @@ namespace Lab1.App
         {
             string? subsequence = "";
             string? sequence = "";
+
+            if (new FileInfo(inputFilePath).Length > 256 * 1024)
+                throw new Exception(
+                    "The input file is too big: " +
+                        "the maximum input file size is 256 KB"
+                );
+
             using (StreamReader input = new StreamReader(inputFilePath))
             {
                 subsequence = input.ReadLine();
                 sequence = input.ReadLine();
 
                 if (subsequence == null || sequence == null)
-                    throw new Exception("Could not read the subsequence or sequence string");
+                    throw new Exception(
+                        "Could not read the subsequence or sequence string"
+                    );
             }
 
             using (StreamWriter output = new StreamWriter(outputFilePath))
