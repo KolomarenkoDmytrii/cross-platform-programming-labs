@@ -419,6 +419,5 @@ FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp,kate,visualstudiocode
 
-# Input and output files
-INPUT.TXT
+# Output files of laboratory projects
 OUTPUT.TXT
