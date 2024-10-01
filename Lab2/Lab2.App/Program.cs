@@ -67,10 +67,6 @@ namespace Lab2.App
 
         static void Main()
         {
-            // BinarySumsNumberCalculator calculator = new BinarySumsNumberCalculator();
-            // Console.WriteLine($"7: {calculator.Calculate(7)}");
-            // Console.WriteLine($"4: {calculator.Calculate(4)}");
-
             try
             {
                 WriteAnswer("INPUT.TXT", "OUTPUT.TXT");
