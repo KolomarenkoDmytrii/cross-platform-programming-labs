@@ -32,7 +32,6 @@ namespace Lab2.App
             }
 
             return result;
-
         }
     }
 
