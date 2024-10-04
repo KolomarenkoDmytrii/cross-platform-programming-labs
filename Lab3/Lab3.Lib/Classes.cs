@@ -4,83 +4,88 @@ using System.Linq;
 
 namespace Lab3.Lib
 {
-    public class ShortestTimeFinder
+    public class Priority
     {
-        public struct Node
-        {
-            public int start;
-            public int end;
+        public int time;
+        public int vertex;
 
-            public Node(int start, int end)
-            {
-                this.start = start;
-                this.end = end;
-            }
+        public Priority(int time, int vertex)
+        {
+            this.time = time;
+            this.vertex = vertex;
+        }
+    }
+
+    public class Edge
+    {
+        public int toVertex;
+        public int fromTime;
+        public int toTime;
+
+        public Edge(int toVertex, int fromTime, int toTime)
+        {
+            this.toVertex = toVertex;
+            this.fromTime = fromTime;
+            this.toTime = toTime;
+        }
+    }
+
+    public class Graph
+    {
+        public List<List<Edge>> graph;
+        public const int INFINITY = Int32.MaxValue;
+
+        public Graph(int numberOfStations)
+        {
+            graph = new List<List<Edge>>(numberOfStations);
+
+            for (int i = 0; i < numberOfStations; i++)
+                graph.Add(new List<Edge>());
         }
 
-        public struct Time
+        public void AddEdge(int fromStation, int toStation, int fromTime, int toTime)
         {
-            public int start;
-            public int end;
-
-            public Time(int start, int end)
-            {
-                this.start = start;
-                this.end = end;
-            }
+            graph[fromStation].Add(new Edge(toStation, fromTime, toTime));
         }
 
-        public struct StationPath
+        public List<int> FindShortestTimes(int start)
         {
-            public Node node;
-            public Time time;
+            List<int> times = new List<int>(graph.Count);
+            for (int i = 0; i < graph.Count; i++)
+                times.Add(INFINITY);
 
-            public StationPath(Node node, Time time)
+            times[start] = 0;
+
+            PriorityQueue<Priority, int> queue = new PriorityQueue<Priority, int>();
+            queue.Enqueue(new Priority(0, start), 0);
+
+            while (queue.Count != 0)
             {
-                this.node = node;
-                this.time = time;
-            }
-        }
+                int vertex = queue.Peek().vertex;
+                int time = queue.Peek().time;
+                queue.Dequeue();
 
-        static public int FindShortestTime(int startStation, int endStation, StationPath[] paths)
-        {
-            int currentStation = startStation;
-            List<int> checkedStations = new List<int>();
-            StationPath minStation = new StationPath();
-            // int answer = -1;
+                if (time > times[vertex])
+                    continue;
 
-            while (currentStation != endStation)
-            {
-                StationPath[] currentNodes = Array.FindAll(
-                    paths,
-                    station => station.node.start == currentStation
-                );
+                foreach (Edge i in graph[vertex])
+                {
+                    // if edge (vertex, toStation) has information what
+                    // fromTime train leaving from vertex time is bigger then
+                    // times[vertex], we can't catch a train
+                    if (i.fromTime < times[vertex])
+                        continue;
 
-                Console.WriteLine("------------------------");
-                // foreach (var c in checkedStations)
-                //     Console.WriteLine(c);
-                // Console.WriteLine($"currentStation = {currentStation}");
-                foreach (var c in currentNodes)
-                    Console.WriteLine($"StationPath(Node({c.node.start}, {c.node.end}), Time({c.time.start}, {c.time.end}))");
-
-                if (checkedStations.Contains(currentNodes[0].node.start))
-                    return -1;
-
-                minStation = currentNodes.MinBy(
-                    station => station.time.end - station.time.start
-                );
-                Console.WriteLine($"minStation = StationPath(Node({minStation.node.start}, {minStation.node.end}), Time({minStation.time.start}, {minStation.time.end}))");
-
-                checkedStations.Add(minStation.node.start); //currentStation
-                currentStation = minStation.node.end;
-
-                // Console.WriteLine("=====");
-                // foreach (var c in checkedStations)
-                //     Console.WriteLine(c);
-                // Console.WriteLine($"currentStation = {currentStation}");
+                    int toStation = i.toVertex;
+                    if (times[toStation] > i.toTime)
+                    {
+                        times[toStation] = i.toTime;
+                        queue.Enqueue(new Priority(times[toStation], toStation), times[toStation]);
+                    }
+                }
             }
 
-            return minStation.time.end;
+            return times;
         }
     }
 }

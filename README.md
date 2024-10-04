@@ -47,8 +47,8 @@ cd Lab3
 
 dotnet new classlib -o Lab3.Lib
 dotnet pack Lab3.Lib/Lab3.Lib.csproj -o packages
-mkdir /home/<user>/.nuget/NuGet/packages
-dotnet nuget push "packages/DKolomarenko.1.0.0.nupkg" -s "/home/<user>/.nuget/NuGet/packages"
+mkdir ~/.nuget/NuGet/packages
+dotnet nuget push packages/DKolomarenko.1.0.0.nupkg" -s ~/.nuget/NuGet/packages
 
 dotnet new console -o Lab3.App
 cd Lab3.App
@@ -63,6 +63,6 @@ dotnet add ./Lab3.Test/Lab3.Test.csproj reference ../Lab3.App/Lab3.App.csproj
 ```
 
 Update package:
-1. Update `<Version>1.0.0</Version>`
+1. Update `<Version>a.b.c+1</Version>`
 2. `dotnet pack Lab3.Lib/Lab3.Lib.csproj -o packages`
-2. `dotnet nuget push "packages/DKolomarenko.1.0.0.nupkg" -s "/home/<user>/.nuget/NuGet/packages"`
+2. `dotnet nuget push packages/DKolomarenko.a.b.c+1.nupkg -s ~/.nuget/NuGet/packages`

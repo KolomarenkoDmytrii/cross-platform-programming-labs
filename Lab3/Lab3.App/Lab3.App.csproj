@@ -8,7 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Lab3.Lib\Lab3.Lib.csproj" />
+    <!-- <ProjectReference Include="..\Lab3.Lib\Lab3.Lib.csproj" /> -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DKolomarenko" Version="1.0.5" />
   </ItemGroup>
 
 </Project>
