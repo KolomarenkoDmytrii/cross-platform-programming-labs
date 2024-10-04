@@ -400,6 +400,7 @@ FodyWeavers.xsd
 *.sln.iml
 
 ### Kate ###
+.kateproject.notes
 # Swap Files #
 .*.kate-swp
 .swp.*

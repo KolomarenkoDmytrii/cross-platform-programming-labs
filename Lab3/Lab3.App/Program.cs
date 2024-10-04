@@ -43,14 +43,13 @@ namespace Lab3.App
             using (StreamWriter output = new StreamWriter(outputFilePath))
             {
                 output.WriteLine(
-                    times[startStation] == Graph.INFINITY? -1 : times[startStation]
+                    times[startStation] == Graph.INFINITY ? -1 : times[startStation]
                 );
             }
         }
 
         static void Main()
         {
-
             try
             {
                 WriteAnswer("INPUT.TXT", "OUTPUT.TXT");

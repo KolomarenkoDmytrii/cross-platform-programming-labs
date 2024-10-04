@@ -1,5 +1,4 @@
 using Lab2.App;
-using System.IO;
 
 namespace Lab2.Test;
 

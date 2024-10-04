@@ -54,12 +54,12 @@ dotnet new console -o Lab3.App
 cd Lab3.App
 dotnet add package DKolomarenko
 
-#???
 cd ..
 dotnet new nunit -o Lab3.Test
 dotnet sln ./Lab3.sln add ./Lab3.Test/Lab3.Test.csproj
-dotnet add ./Lab3.Test/Lab3.Test.csproj package DKolomarenko
-dotnet add ./Lab3.Test/Lab3.Test.csproj reference ../Lab3.App/Lab3.App.csproj
+#dotnet add ./Lab3.Test/Lab3.Test.csproj reference DKolomarenko
+dotnet add ./Lab3.Test/Lab3.Test.csproj reference ./Lab3.Lib/Lab3.Lib.csproj
+dotnet add ./Lab3.Test/Lab3.Test.csproj reference ./Lab3.App/Lab3.App.csproj
 ```
 
 Update package:
