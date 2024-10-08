@@ -8,5 +8,7 @@
     <PackageId>DKolomarenko</PackageId>
     <Version>1.0.5</Version>
     <Authors>Dmytrii Kolomarenko</Authors>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 </Project>
