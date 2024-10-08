@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <Target Name="Build">
+    <MSBuild Projects="Lab3\Lab3.Lib\Lab3.Lib.csproj" Targets="Restore;Build" />
     <MSBuild Projects="@(ProjectFile)" Targets="Restore;Build" />
   </Target>
 
