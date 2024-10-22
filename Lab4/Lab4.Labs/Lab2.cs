@@ -2,9 +2,9 @@
 using System.IO;
 using System.Collections.Generic;
 
-namespace Lab2.Labs
+namespace Lab4.Labs
 {
-    class Lab2
+    public class Lab2
     {
         public class BinarySumsNumberCalculator
         {
