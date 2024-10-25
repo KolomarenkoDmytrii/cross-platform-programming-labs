@@ -14,6 +14,16 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>DKolomarenko</ToolCommandName>
+    <PackageId>DKolomarenko</PackageId>
+    <PackageOutputPath>../nupkg</PackageOutputPath>
+    <Version>1.0.2</Version>
+    <Authors>Dmytrii Kolomarenko</Authors>
+    <Copyright>Dmytrii Kolomarenko</Copyright>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Diagnostics;
+using System.Reflection;
 
 using McMaster.Extensions.CommandLineUtils;
 using DotNetEnv;
@@ -9,24 +11,17 @@ using Lab4.Labs;
 namespace Lab4.App
 {
     [Command(Name = "run-labs", Description = "Run lab works"),
-     Subcommand(typeof(Run)), Subcommand(typeof(SetPath))]
+     Subcommand(typeof(Run)),
+     Subcommand(typeof(SetPath)),
+     Subcommand(typeof(Version))]
     class RunLabs
     {
         public static int Main(string[] args)
             => CommandLineApplication.Execute<RunLabs>(args);
 
-        // [Option(Description = "Lab work to run")]
-        // public string Lab { get; }
-
-        // [Option(ShortName = "I", Description = "Input file")]
-        // public string Input { get; } = "INPUT.TXT";
-        //
-        // [Option(ShortName = "o", Description = "Output file")]
-        // public string Output { get; } = "OUTPUT.TXT";
-
         private int OnExecute(CommandLineApplication app, IConsole console)
         {
-            console.WriteLine("You must specify at a subcommand.");
+            console.WriteLine("You must specify a subcommand.");
             app.ShowHelp();
             return 1;
         }
@@ -176,16 +171,20 @@ namespace Lab4.App
                     }
                     catch (Exception exception)
                     {
-                        Console.Error.WriteLine($"An error occured: {exception}");
+                        Console.Error.WriteLine(
+                            $"An error occured: {exception}"
+                        );
                     }
                 }
             }
         }
 
-        [Command("set-path", Description = "Set LAB_PATH environment value in .env file")]
+        [Command("set-path",
+         Description = "Set LAB_PATH environment value in .env file")]
         private class SetPath
         {
-            [Option("-p|--path", Description = "Input and output files directory")]
+            [Option("-p|--path",
+             Description = "Input and output files directory")]
             public string ResultPath { get; }
 
             private void OnExecute(IConsole console)
@@ -194,6 +193,19 @@ namespace Lab4.App
                     console.Error.WriteLine("Please specify path for input and output files directory.");
                 else
                     File.AppendAllText(".env", $"LAB_PATH={ResultPath}");
+            }
+        }
+
+        [Command("version",
+         Description = "Output the command version and author")]
+        private class Version
+        {
+            private void OnExecute(IConsole console)
+            {
+                var fileVersionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location);
+
+                console.WriteLine($"Version: {fileVersionInfo.FileVersion}");
+                console.WriteLine($"Author: {fileVersionInfo.LegalCopyright}");
             }
         }
     }

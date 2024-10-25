@@ -66,3 +66,13 @@ Update package:
 1. Update `<Version>a.b.c+1</Version>`
 2. `dotnet pack Lab3.Lib/Lab3.Lib.csproj -o packages`
 2. `dotnet nuget push packages/DKolomarenko.a.b.c+1.nupkg -s ~/.nuget/NuGet/packages`
+
+
+### Lab4
+Run lab (example): `dotnet run -- run lab3 -I INPUT.TXT -o OUTPUT.TXT`.
+
+How to create a dotnet tool package:
+- https://learn.microsoft.com/en-us/dotnet/core/tools/global-tools-how-to-create
+How to install a dotnet tool package localy:
+- https://learn.microsoft.com/en-us/dotnet/core/tools/local-tools-how-to-use
+- `dotnet tool install --add-source ./Lab4/nupkg/ DKolomarenko` (Build the project first)
