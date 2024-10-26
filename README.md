@@ -76,3 +76,6 @@ How to create a dotnet tool package:
 How to install a dotnet tool package localy:
 - https://learn.microsoft.com/en-us/dotnet/core/tools/local-tools-how-to-use
 - `dotnet tool install --add-source ./Lab4/nupkg/ DKolomarenko` (Build the project first)
+
+#### Vagrant
+~Install the vagrant-qemu plugin: `vagrant plugin install vagrant-qemu`.~

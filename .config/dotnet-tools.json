@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "dkolomarenko": {
+      "version": "1.0.2",
+      "commands": [
+        "DKolomarenko"
+      ],
+      "rollForward": false
+    }
+  }
+}
