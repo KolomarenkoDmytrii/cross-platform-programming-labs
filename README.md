@@ -78,4 +78,5 @@ How to install a dotnet tool package localy:
 - `dotnet tool install --add-source ./Lab4/nupkg/ DKolomarenko` (Build the project first)
 
 #### Vagrant
-~Install the vagrant-qemu plugin: `vagrant plugin install vagrant-qemu`.~
+Move to Lab4 directory and run `vagrant up` or `vagrant provision`, 
+if virtual machine already running
