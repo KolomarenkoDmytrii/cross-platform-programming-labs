@@ -45,7 +45,6 @@ Vagrant.configure("2") do |config|
       cp -r /vagrant/* /tmp/Lab4
       cd /tmp/Lab4
       dotnet build
-      # dotnet run --project /vagrant/Lab4.App/Lab4.App.csproj -- version
 
       echo "run-labs version"
       dotnet run --project Lab4.App/Lab4.App.csproj -- version
@@ -74,6 +73,87 @@ Vagrant.configure("2") do |config|
       echo "=== Pushing dotnet package ==="
       dotnet pack /vagrant/Lab4.App/Lab4.csproj
       dotnet nuget push -s http://localhost:5000/v3/index.json /vagrant/nupkg/DKolomarenko.1.0.2.nupkg --skip-duplicate
+    SHELL
+  end
+
+  config.vm.define "windows" do |windows|
+    windows.vm.box = "gusztavvargadr/windows-11"
+
+    windows.vm.network "forwarded_port", guest: 5000, host: 8080
+
+    # Share an additional folder to the guest VM. The first argument is
+    # the path on the host to the actual folder. The second argument is
+    # the path on the guest to mount the folder. And the optional third
+    # argument is a set of non-required options.
+    config.vm.synced_folder "./", "c:\\vagrant"
+
+    windows.vm.provider "virtualbox" do |vb|
+      # Customize the amount of memory on the VM:
+      vb.memory = "2048"
+      vb.cpus = 4
+    end
+
+    windows.vm.provision "shell", run: "always", inline: <<-SHELL
+      echo ""
+      echo "=== Installing Chocolatey ==="
+      if (-not (Get-Command "choco" -ErrorAction SilentlyContinue)) {
+        echo "choco command not found: installing Chocolatey..."
+        [System.Net.WebClient]::new().DownloadString('https://chocolatey.org/install.ps1') | Invoke-Expression
+      }
+
+      echo ""
+      echo "=== Installing dotnet sdk ==="
+      # winget source update
+      # winget install Microsoft.DotNet.SDK.8 --accept-package-agreements --silent --accept-source-agreements
+      choco install dotnet-8.0-sdk -y
+      # choco install dotnet-8.0-runtime -y --force
+
+      echo ""
+      echo "=== Restart vm ==="
+
+      Restart-Computer -Force
+    SHELL
+
+    windows.vm.provision "shell", run: "always", inline: <<-SHELL
+      # echo ""
+      # echo "=== Run dotnet ==="
+      # dotnet --help
+
+      echo ""
+      echo "=== Copying Lab4 folder ==="
+      mkdir Lab4
+      robocopy C:/vagrant Lab4 /E
+
+      echo ""
+      echo "=== Run app ==="
+      cd Lab4
+      dotnet build
+
+      echo "run-labs version"
+      dotnet run --project Lab4.App/Lab4.App.csproj -- version
+
+      echo "run-labs run lab1"
+      dotnet run --project Lab4.App/Lab4.App.csproj -- run lab1 -I C:/vagrant/lab1_input.txt -o C:/vagrant/lab1_output.txt
+
+      echo "run-labs run lab2"
+      dotnet run --project Lab4.App/Lab4.App.csproj -- run lab2 -I C:/vagrant/lab2_input.txt -o C:/vagrant/lab2_output.txt
+
+      echo "run-labs run lab3"
+      dotnet run --project Lab4.App/Lab4.App.csproj -- run lab3 -I C:/vagrant/lab3_input.txt -o C:/vagrant/lab3_output.txt
+
+      echo ""
+      echo "=== Installing and running BaGetter ==="
+      mkdir BaGetter
+      cd BaGetter
+      Invoke-WebRequest "https://github.com/bagetter/BaGetter/releases/download/v1.5.0/bagetter-1.5.0.zip" -OutFile BaGetter.zip
+      Expand-Archive -Path BaGetter.zip -DestinationPath "./"
+
+      Start-Process -NoNewWindow dotnet BaGetter.dll
+
+      echo ""
+      echo "=== Pushing dotnet package ==="
+      dotnet pack C:/vagrant/Lab4.App/Lab4.csproj
+      dotnet nuget push -s http://localhost:5000/v3/index.json C:/vagrant/nupkg/DKolomarenko.1.0.2.nupkg --skip-duplicate
     SHELL
   end
 end
