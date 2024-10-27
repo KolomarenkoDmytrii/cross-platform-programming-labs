@@ -78,5 +78,6 @@ How to install a dotnet tool package localy:
 - `dotnet tool install --add-source ./Lab4/nupkg/ DKolomarenko` (Build the project first)
 
 #### Vagrant
-Move to Lab4 directory and run `vagrant up` or `vagrant provision`, 
-if virtual machine already running
+Move to Lab4 directory and run `vagrant up <vm_name>` or `vagrant provision <vm_name>`, 
+if virtual machine already running, and `<vm_name>` stands for ubuntu for the ubuntu vm,
+windows for windows vm.
