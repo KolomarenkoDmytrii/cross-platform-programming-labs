@@ -73,6 +73,10 @@ Vagrant.configure("2") do |config|
       echo "=== Pushing dotnet package ==="
       dotnet pack /vagrant/Lab4.App/Lab4.csproj
       dotnet nuget push -s http://localhost:5000/v3/index.json /vagrant/nupkg/DKolomarenko.1.0.2.nupkg --skip-duplicate
+
+      echo ""
+      echo "=== Installing package as a global tool ==="
+      dotnet tool install --global --add-source http://localhost:5000/v3/index.json DKolomarenko
     SHELL
   end
 
@@ -154,6 +158,10 @@ Vagrant.configure("2") do |config|
       echo "=== Pushing dotnet package ==="
       dotnet pack C:/vagrant/Lab4.App/Lab4.csproj
       dotnet nuget push -s http://localhost:5000/v3/index.json C:/vagrant/nupkg/DKolomarenko.1.0.2.nupkg --skip-duplicate
+
+      echo ""
+      echo "=== Installing package as a global tool ==="
+      dotnet tool install --global --add-source http://localhost:5000/v3/index.json DKolomarenko
     SHELL
   end
 end
