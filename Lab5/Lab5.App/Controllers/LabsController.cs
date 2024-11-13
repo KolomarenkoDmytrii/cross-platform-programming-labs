@@ -1,17 +1,21 @@
-// using System.Diagnostics;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Lab5.App.Models;
 using Lab5.Labs;
-using System.ComponentModel.DataAnnotations;
 
 namespace Lab5.App.Controllers;
 
+[Authorize]
 public class LabsController : Controller
 {
     [HttpGet]
     public IActionResult RunLab1() => View();
+
+    [Authorize]
     [HttpGet]
     public IActionResult RunLab2() => View();
+
     [HttpGet]
     public IActionResult RunLab3() => View();
 
@@ -33,7 +37,7 @@ public class LabsController : Controller
     public IActionResult RunLab3(Lab3InputModel input)
     {
         int result = Lab3.Run(input.Start, input.End);
-        ViewBag.Result = result == Lab3.Graph.INFINITY? -1 : result;
+        ViewBag.Result = result == Lab3.Graph.INFINITY ? -1 : result;
         return View("RunLab3");
     }
 }
