@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "Лабораторна 2";
+}
+
+@model Lab2InputModel
+
+<form asp-controller="Labs" asp-action="RunLab2" method="post">
+    <label>Число: <input asp-for="Number" /></label> <br />
+    <button type="submit">Отримати результат</button>
+</form>
+
+<div>
+    <p>Результат: @ViewBag.Result</p>
+</div>

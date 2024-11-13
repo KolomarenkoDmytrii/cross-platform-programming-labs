@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Лабораторна 1";
+}
+
+@model Lab3InputModel
+
+<ul>
+    <li>(FromStation: 1, ToStation: 2, FromTime: 5, ToTime: 10)</li>
+    <li>(FromStation: 2, ToStation: 4, FromTime: 10, ToTime: 15)</li>
+    <li>(FromStation: 5, ToStation: 4, FromTime: 0, ToTime: 17)</li>
+    <li>(FromStation: 4, ToStation: 3, FromTime: 17, ToTime: 20)</li>
+    <li>(FromStation: 3, ToStation: 2, FromTime: 20, ToTime: 35)</li>
+    <li>(FromStation: 1, ToStation: 3, FromTime: 2, ToTime: 40)</li>
+    <li>(FromStation: 3, ToStation: 4, FromTime: 40, ToTime: 45)</li>
+</ul>
+
+<form asp-controller="Labs" asp-action="RunLab3" method="post">
+    <label>Початкова станція: <input asp-for="Start" /></label> <br />
+    <label>Кінцева станція: <input asp-for="End" /></label><br />
+    <button type="submit">Отримати результат</button>
+</form>
+
+<div>
+    <p>Результат: @ViewBag.Result</p>
+</div>
