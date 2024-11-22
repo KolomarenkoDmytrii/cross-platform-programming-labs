@@ -1,0 +1,10 @@
+@model UserProfileViewModel
+
+@{
+    ViewData["Title"] = "Профіль";
+}
+
+<p>Ім'я: @Model.Username</p>
+<p>ПІБ: @Model.FullName</p>
+<p>Номер телефону: @Model.PhoneNumber</p>
+<p>Електронна пошта: @Model.Email</p>

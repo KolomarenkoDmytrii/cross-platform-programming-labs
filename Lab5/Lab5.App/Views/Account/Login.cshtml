@@ -1,0 +1,26 @@
+@model LoginInfoViewModel
+
+@{
+    ViewData["Title"] = "Вхід";
+}
+
+<h1>Login</h1>
+<form asp-controller="Account" asp-action="Login" method="post">
+    <p>
+        <label asp-for="Email"></label>
+        <input asp-for="Email"/>
+        <span asp-validation-for="Email" style="color: red;"></span>
+    </p>
+    <p>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password"/>
+        <span asp-validation-for="Password" style="color: red;"></span>
+    </p>
+
+    <button type="submit">Login</button>
+    <div asp-validation-summary="ModelOnly" style="color: red;"></div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
