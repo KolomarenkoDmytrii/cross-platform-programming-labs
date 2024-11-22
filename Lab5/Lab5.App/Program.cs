@@ -42,5 +42,4 @@ app.UseAuthorization();
 
 app.MapDefaultControllerRoute();
 
-// app.Run("http://0.0.0.0:5230");
-app.Run();
+app.Run("http://0.0.0.0:5230");
