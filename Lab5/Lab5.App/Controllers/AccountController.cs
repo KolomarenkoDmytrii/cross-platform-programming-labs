@@ -149,7 +149,9 @@ public class AccountController(Auth0UserService auth0UserService) : Controller
     //       CookieAuthenticationDefaults.AuthenticationScheme
     //     );
     // }
-    [HttpPost]
+
+    // [HttpPost]
+    // [HttpPost]
     [Authorize]
     public async Task<IActionResult> Logout()
     {
