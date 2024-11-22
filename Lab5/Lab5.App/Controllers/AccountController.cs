@@ -39,21 +39,6 @@ public class AccountController(Auth0UserService auth0UserService) : Controller
         }
     }
 
-    // public async Task Login(string returnUrl = "/")
-    // {
-    //     var authenticationProperties = new LoginAuthenticationPropertiesBuilder()
-    //       // Indicate here where Auth0 should redirect the user after a login.
-    //       // Note that the resulting absolute Uri must be added to the
-    //       // **Allowed Callback URLs** settings for the app.
-    //       .WithRedirectUri(returnUrl)
-    //       .Build();
-    //
-    //     await HttpContext.ChallengeAsync(
-    //       Auth0Constants.AuthenticationScheme,
-    //       authenticationProperties
-    //     );
-    // }
-
     [HttpGet]
     public IActionResult Login() =>
         User.Identity != null && User.Identity.IsAuthenticated
@@ -74,7 +59,6 @@ public class AccountController(Auth0UserService auth0UserService) : Controller
                 new Claim(ClaimTypes.NameIdentifier, userProfile.Email),
                 new Claim(ClaimTypes.Name, userProfile.FullName),
                 new Claim(ClaimTypes.Email, userProfile.Email),
-                // new Claim("ProfileImage", userProfile.ProfileImage),
                 new Claim(ClaimTypes.MobilePhone, userProfile.PhoneNumber),
                 new Claim("Username", userProfile.Username)
             ];
@@ -93,24 +77,6 @@ public class AccountController(Auth0UserService auth0UserService) : Controller
         }
     }
 
-    // [Authorize]
-    // public IActionResult Profile()
-    // {
-    //     ViewBag.Name = User.Identity.Name;
-    //
-    //     ViewBag.EmailAddress = User.Claims
-    //         .FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-    //
-    //     // return View(new
-    //     // {
-    //     //     Name = User.Identity.Name,
-    //     //     EmailAddress = User.Claims
-    //     //     .FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
-    //     //     ProfileImage = User.Claims
-    //     //     .FirstOrDefault(c => c.Type == "picture")?.Value
-    //     // });
-    //     return View();
-    // }
     [Authorize]
     public IActionResult Profile()
     {
@@ -122,35 +88,12 @@ public class AccountController(Auth0UserService auth0UserService) : Controller
             Email = user.FindFirst(ClaimTypes.Email)?.Value ?? alternativeValue,
             FullName = user.FindFirst(ClaimTypes.Name)?.Value ?? alternativeValue,
             PhoneNumber = user.FindFirst(ClaimTypes.MobilePhone)?.Value ?? alternativeValue,
-            // ProfileImage = user.FindFirst("ProfileImage")?.Value ?? alternativeValue,
             Username = user.FindFirst("Username")?.Value ?? alternativeValue
         };
 
         return View(profileViewModel);
     }
 
-    // [Authorize]
-    // public async Task Logout()
-    // {
-    //     var authenticationProperties = new LogoutAuthenticationPropertiesBuilder()
-    //       // Indicate here where Auth0 should redirect the user after a logout.
-    //       // Note that the resulting absolute Uri must be added to the
-    //       // **Allowed Logout URLs** settings for the app.
-    //       .WithRedirectUri(Url.Action("Index", "Home"))
-    //       .Build();
-    //
-    //     // Logout from Auth0
-    //     await HttpContext.SignOutAsync(
-    //       Auth0Constants.AuthenticationScheme,
-    //       authenticationProperties
-    //     );
-    //     // Logout from the application
-    //     await HttpContext.SignOutAsync(
-    //       CookieAuthenticationDefaults.AuthenticationScheme
-    //     );
-    // }
-
-    // [HttpPost]
     // [HttpPost]
     [Authorize]
     public async Task<IActionResult> Logout()
