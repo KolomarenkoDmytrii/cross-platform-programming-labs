@@ -1,0 +1,49 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.define "lab5" do |lab5|
+    lab5.vm.box = "alvistack/ubuntu-24.04"
+
+    lab5.vm.network "forwarded_port", guest: 5230, host: 5230
+
+    # Share an additional folder to the guest VM. The first argument is
+    # the path on the host to the actual folder. The second argument is
+    # the path on the guest to mount the folder. And the optional third
+    # argument is a set of non-required options.
+    # config.vm.synced_folder "../data", "/vagrant_data"
+
+    # Disable the default share of the current code directory. Doing this
+    # provides improved isolation between the vagrant box and your host
+    # by making sure your Vagrantfile isn't accessible to the vagrant box.
+    # If you use this you may want to enable additional shared subfolders as
+    # shown above.
+    # config.vm.synced_folder ".", "/vagrant", disabled: true
+
+    lab5.vm.provider "virtualbox" do |vb|
+      # Customize the amount of memory on the VM:
+      vb.memory = "2048"
+    end
+
+    # Enable provisioning with a shell script. Additional provisioners such as
+    # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
+    # documentation for more information about their specific syntax and use.
+    lab5.vm.provision "shell", inline: <<-SHELL
+      echo ""
+      echo "=== Updating packages ==="
+      apt-get update
+      apt-get upgrade -y
+
+      echo ""
+      echo "=== Installing dotnet sdk ==="
+      apt-get install -y dotnet-sdk-8.0
+
+      echo ""
+      echo "=== Run app ==="
+      mkdir /tmp/Lab5
+      cp -r /vagrant/* /tmp/Lab5
+      cd /tmp/Lab5
+      dotnet run --project Lab5.App/Lab5.App.csproj
+    SHELL
+  end
+end

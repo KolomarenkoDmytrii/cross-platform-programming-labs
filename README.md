@@ -83,3 +83,11 @@ Setting up Vagrant to work with VirtualBox 7.1.x: https://github.com/hashicorp/v
 Move to Lab4 directory and run `vagrant up <vm_name>` or `vagrant provision <vm_name>`, 
 if virtual machine already running, and `<vm_name>` stands for ubuntu for the ubuntu vm,
 windows for the windows vm.
+
+
+### Lab6
+Install Entity Framework CLI: https://learn.microsoft.com/en-us/ef/core/cli/dotnet
+
+https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli
+
+https://www.entityframeworktutorial.net/code-first/foreignkey-dataannotations-attribute-in-code-first.aspx
