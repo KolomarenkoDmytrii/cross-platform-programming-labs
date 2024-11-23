@@ -28,4 +28,26 @@ public class ApplicationDbContext : DbContext
     public DbSet<RefAssetType> RefAssetTypes { get; set; }
     public DbSet<Asset> Assets { get; set; }
     public DbSet<AssetLifeCycleEvent> AssetLifeCycleEvents { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // Seed initial data
+        modelBuilder.Entity<RefSize>().HasData(
+            new RefSize { SizeCode = "SMALL", SizeDescription = "Small" },
+            new RefSize { SizeCode = "MEDIUM", SizeDescription = "Medium" },
+            new RefSize { SizeCode = "LARGE", SizeDescription = "Large" }
+        );
+
+        modelBuilder.Entity<Location>().HasData(
+            new Location { LocationID = 1, LocationDetails = "Rivercity" },
+            new Location { LocationID = 2, LocationDetails = "London" },
+            new Location { LocationID = 3, LocationDetails = "Rome" }
+        );
+
+        modelBuilder.Entity<RefStatus>().HasData(
+            new RefStatus { StatusCode = "PAID", StatusDescription = "Electronics" },
+            new RefStatus { StatusCode = "DELIVERED", StatusDescription = "Clothing" },
+            new RefStatus { StatusCode = "CANCELLED", StatusDescription = "Cancelled" }
+        );
+    }
 }

@@ -91,3 +91,7 @@ Install Entity Framework CLI: https://learn.microsoft.com/en-us/ef/core/cli/dotn
 https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli
 
 https://www.entityframeworktutorial.net/code-first/foreignkey-dataannotations-attribute-in-code-first.aspx
+
+`dotnet ef migrations add MigrationName`
+
+`dotnet ef database update`

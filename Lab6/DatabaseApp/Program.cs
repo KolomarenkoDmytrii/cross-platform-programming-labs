@@ -1,7 +1,13 @@
+using DatabaseApp.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//     options.UseSqlite(builder.Configuration.GetConnectionString("SQLite")));
+builder.Services.AddDbContext<ApplicationDbContext>();
 
 var app = builder.Build();
 
@@ -24,4 +30,4 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.Run();
+app.Run("http://127.0.0.1:5700");
