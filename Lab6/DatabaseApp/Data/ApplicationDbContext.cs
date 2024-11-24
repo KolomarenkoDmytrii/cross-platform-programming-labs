@@ -45,9 +45,69 @@ public class ApplicationDbContext : DbContext
         );
 
         modelBuilder.Entity<RefStatus>().HasData(
-            new RefStatus { StatusCode = "PAID", StatusDescription = "Electronics" },
-            new RefStatus { StatusCode = "DELIVERED", StatusDescription = "Clothing" },
+            new RefStatus { StatusCode = "PAID", StatusDescription = "Paid" },
+            new RefStatus { StatusCode = "DELIVERED", StatusDescription = "Delivered" },
             new RefStatus { StatusCode = "CANCELLED", StatusDescription = "Cancelled" }
+        );
+
+        modelBuilder.Entity<RefAssetCategory>().HasData(
+            new RefAssetCategory { AssetCategoryCode = "DOMESTIC", AssetCategoryDescription = "Domestic" }
+        );
+
+        modelBuilder.Entity<RefAssetSupertype>().HasData(
+            new RefAssetSupertype
+            {
+                AssetSupertypeCode = "CUTLERY",
+                AssetCategoryCode = "DOMESTIC",
+                AssetSupertypeDescription = "Cutlery"
+            }
+        );
+
+        modelBuilder.Entity<RefAssetType>().HasData(
+            new RefAssetType
+            {
+                AssetTypeCode = "SPOON",
+                AssetSupertypeCode = "CUTLERY",
+                AssetTypeDescription = "Spoon"
+            }
+        );
+
+        modelBuilder.Entity<Asset>().HasData(
+            new Asset
+            {
+                AssetID = 1,
+                AssetTypeCode = "SPOON",
+                SizeCode = "SMALL",
+                AssetName = "UltraSpoon",
+                OtherDetails = "Great ultra spoon"
+            }
+        );
+
+        modelBuilder.Entity<LifeCyclePhase>().HasData(
+            new LifeCyclePhase
+            {
+                LifeCycleCode = "START",
+                LifeCycleName = "Start",
+                LifeCycleDescription = "Start of a life cycle"
+            }
+        );
+
+        modelBuilder.Entity<ResponsibleParty>().HasData(
+            new ResponsibleParty { PartyID = 1, PartyDetails = "Johnsons Ltd." }
+        );
+
+        modelBuilder.Entity<AssetLifeCycleEvent>().HasData(
+            new AssetLifeCycleEvent
+            {
+                AssetLifeCycleEventID = 1,
+                AssetID = 1,
+                LifeCycleCode = "START",
+                LocationID = 1,
+                PartyID = 1,
+                StatusCode = "DELIVERED",
+                DateFrom = new DateTime(2024, 11, 20),
+                DateTo = new DateTime(2024, 11, 21)
+            }
         );
     }
 }

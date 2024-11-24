@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241123152901_SeedData")]
+    [Migration("20241124115148_SeedData")]
     partial class SeedData
     {
         /// <inheritdoc />
@@ -49,6 +49,16 @@ namespace DatabaseApp.Migrations
                     b.HasIndex("SizeCode");
 
                     b.ToTable("Assets");
+
+                    b.HasData(
+                        new
+                        {
+                            AssetID = 1,
+                            AssetName = "UltraSpoon",
+                            AssetTypeCode = "SPOON",
+                            OtherDetails = "Great ultra spoon",
+                            SizeCode = "SMALL"
+                        });
                 });
 
             modelBuilder.Entity("DatabaseApp.Models.AssetLifeCycleEvent", b =>
@@ -157,6 +167,13 @@ namespace DatabaseApp.Migrations
                     b.HasKey("AssetCategoryCode");
 
                     b.ToTable("RefAssetCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            AssetCategoryCode = "DOMESTIC",
+                            AssetCategoryDescription = "Domestic"
+                        });
                 });
 
             modelBuilder.Entity("DatabaseApp.Models.RefAssetSupertype", b =>
@@ -177,6 +194,14 @@ namespace DatabaseApp.Migrations
                     b.HasIndex("AssetCategoryCode");
 
                     b.ToTable("RefAssetSupertypes");
+
+                    b.HasData(
+                        new
+                        {
+                            AssetSupertypeCode = "CUTLERY",
+                            AssetCategoryCode = "DOMESTIC",
+                            AssetSupertypeDescription = "Cutlery"
+                        });
                 });
 
             modelBuilder.Entity("DatabaseApp.Models.RefAssetType", b =>
@@ -197,6 +222,14 @@ namespace DatabaseApp.Migrations
                     b.HasIndex("AssetSupertypeCode");
 
                     b.ToTable("RefAssetTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            AssetTypeCode = "SPOON",
+                            AssetSupertypeCode = "CUTLERY",
+                            AssetTypeDescription = "Spoon"
+                        });
                 });
 
             modelBuilder.Entity("DatabaseApp.Models.RefSize", b =>
@@ -247,12 +280,12 @@ namespace DatabaseApp.Migrations
                         new
                         {
                             StatusCode = "PAID",
-                            StatusDescription = "Electronics"
+                            StatusDescription = "Paid"
                         },
                         new
                         {
                             StatusCode = "DELIVERED",
-                            StatusDescription = "Clothing"
+                            StatusDescription = "Delivered"
                         },
                         new
                         {

@@ -23,6 +23,11 @@ namespace DatabaseApp.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "RefAssetCategories",
+                columns: new[] { "AssetCategoryCode", "AssetCategoryDescription" },
+                values: new object[] { "DOMESTIC", "Domestic" });
+
+            migrationBuilder.InsertData(
                 table: "RefSizes",
                 columns: new[] { "SizeCode", "SizeDescription" },
                 values: new object[,]
@@ -38,14 +43,34 @@ namespace DatabaseApp.Migrations
                 values: new object[,]
                 {
                     { "CANCELLED", "Cancelled" },
-                    { "DELIVERED", "Clothing" },
-                    { "PAID", "Electronics" }
+                    { "DELIVERED", "Delivered" },
+                    { "PAID", "Paid" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "RefAssetSupertypes",
+                columns: new[] { "AssetSupertypeCode", "AssetCategoryCode", "AssetSupertypeDescription" },
+                values: new object[] { "CUTLERY", "DOMESTIC", "Cutlery" });
+
+            migrationBuilder.InsertData(
+                table: "RefAssetTypes",
+                columns: new[] { "AssetTypeCode", "AssetSupertypeCode", "AssetTypeDescription" },
+                values: new object[] { "SPOON", "CUTLERY", "Spoon" });
+
+            migrationBuilder.InsertData(
+                table: "Assets",
+                columns: new[] { "AssetID", "AssetName", "AssetTypeCode", "OtherDetails", "SizeCode" },
+                values: new object[] { 1, "UltraSpoon", "SPOON", "Great ultra spoon", "SMALL" });
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DeleteData(
+                table: "Assets",
+                keyColumn: "AssetID",
+                keyValue: 1);
+
             migrationBuilder.DeleteData(
                 table: "Locations",
                 keyColumn: "LocationID",
@@ -72,11 +97,6 @@ namespace DatabaseApp.Migrations
                 keyValue: "MEDIUM");
 
             migrationBuilder.DeleteData(
-                table: "RefSizes",
-                keyColumn: "SizeCode",
-                keyValue: "SMALL");
-
-            migrationBuilder.DeleteData(
                 table: "RefStatuses",
                 keyColumn: "StatusCode",
                 keyValue: "CANCELLED");
@@ -90,6 +110,26 @@ namespace DatabaseApp.Migrations
                 table: "RefStatuses",
                 keyColumn: "StatusCode",
                 keyValue: "PAID");
+
+            migrationBuilder.DeleteData(
+                table: "RefAssetTypes",
+                keyColumn: "AssetTypeCode",
+                keyValue: "SPOON");
+
+            migrationBuilder.DeleteData(
+                table: "RefSizes",
+                keyColumn: "SizeCode",
+                keyValue: "SMALL");
+
+            migrationBuilder.DeleteData(
+                table: "RefAssetSupertypes",
+                keyColumn: "AssetSupertypeCode",
+                keyValue: "CUTLERY");
+
+            migrationBuilder.DeleteData(
+                table: "RefAssetCategories",
+                keyColumn: "AssetCategoryCode",
+                keyValue: "DOMESTIC");
         }
     }
 }
