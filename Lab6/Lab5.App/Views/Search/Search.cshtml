@@ -1,0 +1,71 @@
+@model IEnumerable<DatabaseApp.Models.SearchResult>
+
+<h1>Розширений пошук подій</h1>
+<form method="post" action="@Url.Action("Search", "Search")">
+    <p>
+        <label for="StartDate">Дата початку:</label>
+        <input type="datetime-local" name="StartDate" />
+    </p>
+
+    <p>
+        <label for="EndDate">Дата кінця:</label>
+        <input type="datetime-local" name="EndDate" />
+    </p>
+
+    <p>
+        <label for="LifeCycleCodes">LifeCycleCodes:</label>
+        <select name="LifeCycleCodes" multiple>
+            <option value="START">START</option>
+            <option value="END">END</option>
+            <option value="CONTINUES">CONTINUES</option>
+        </select>
+    </p>
+
+    <p>
+        <label for="AssetNameStart">Назва асету (початок):</label>
+        <input type="text" name="AssetNameStart" />
+    </p>
+
+    </p>
+        <label for="AssetNameEnd">Назва асету (кінець):</label>
+        <input type="text" name="AssetNameEnd" />
+    </p>
+
+    <button type="submit">Пошук</button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>AssetID</th>
+        <th>AssetName</th>
+        <th>OtherDetails</th>
+        <th>AssetLifeCycleEventID</th>
+        <th>DateFrom</th>
+        <th>DateTo</th>
+        <th>LifeCycleCode</th>
+        <th>StatusCode</th>
+        <th>LifeCycleName</th>
+        <th>LocationDetails</th>
+        <th>PartyDetails</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var result in Model)
+    {
+        <tr>
+            <td>@result.AssetID</td>
+            <td>@result.AssetName</td>
+            <td>@result.OtherDetails</td>
+            <td>@result.AssetLifeCycleEventID</td>
+            <td>@result.DateFrom.ToShortDateString()</td>
+            <td>@result.DateTo.ToShortDateString()</td>
+            <td>@result.LifeCycleCode</td>
+            <td>@result.StatusCode</td>
+            <td>@result.LifeCycleName</td>
+            <td>@result.LocationDetails</td>
+            <td>@result.PartyDetails</td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -12,11 +12,11 @@ using DatabaseApp.Models;
 
 [Route("dbapi/[controller]")]
 [ApiController]
-public class SearchController : ControllerBase
+public class SearchDBController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
 
-    public SearchController(ApplicationDbContext context)
+    public SearchDBController(ApplicationDbContext context)
     {
         _context = context;
     }
@@ -29,24 +29,24 @@ public class SearchController : ControllerBase
             join lc in _context.LifeCyclePhases on alc.LifeCycleCode equals lc.LifeCycleCode
             join l in _context.Locations on alc.LocationID equals l.LocationID
             join r in _context.ResponsibleParties on alc.PartyID equals r.PartyID
-            where alc.DateFrom >= searchModel.StartDate?.ToUniversalTime()
-                  && alc.DateTo <= searchModel.EndDate?.ToUniversalTime()
-                  && alc.LifeCycleCode in searchModel.Statuses
+            where alc.DateFrom >= searchModel.StartDate.ToUniversalTime()
+                  && alc.DateTo <= searchModel.EndDate.ToUniversalTime()
+                  && searchModel.LifeCycleCodes.Contains(alc.LifeCycleCode)
                   && a.AssetName.StartsWith(searchModel.AssetNameStart)
-                  && a.AssetName.StartsWith(searchModel.AssetNameEnd)
-            select new
+                  && a.AssetName.EndsWith(searchModel.AssetNameEnd)
+            select new SearchResult
             {
-                a.AssetID,
-                a.AssetName,
-                a.OtherDetails,
-                alc.AssetLifeCycleEventID,
-                alc.DateFrom,
-                alc.DateTo,
-                alc.LifeCycleCode,
-                alc.StatusCode,
-                lc.LifeCycleName,
-                l.LocationDetails,
-                r.PartyDetails
+                AssetID = a.AssetID,
+                AssetName = a.AssetName,
+                OtherDetails = a.OtherDetails,
+                AssetLifeCycleEventID = alc.AssetLifeCycleEventID,
+                DateFrom = alc.DateFrom,
+                DateTo = alc.DateTo,
+                LifeCycleCode = alc.LifeCycleCode,
+                StatusCode = alc.StatusCode,
+                LifeCycleName = lc.LifeCycleName,
+                LocationDetails = l.LocationDetails,
+                PartyDetails = r.PartyDetails
             };
 
         var result = await query.ToListAsync();
