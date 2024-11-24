@@ -1,0 +1,12 @@
+@model IEnumerable<DatabaseApp.Models.RefSize>
+
+@{
+    ViewData["Title"] = "Розміри";
+}
+
+<ul>
+@foreach (var size in Model)
+{
+    <li>ІD: @size.SizeCode ; Опис: @size.SizeDescription</li>
+}
+</ul>

@@ -1,0 +1,12 @@
+@model IEnumerable<DatabaseApp.Models.RefStatus>
+
+@{
+    ViewData["Title"] = "Статуси";
+}
+
+<ul>
+@foreach (var status in Model)
+{
+    <li>ID: @status.StatusCode ; Опис: @status.StatusDescription</li>
+}
+</ul>

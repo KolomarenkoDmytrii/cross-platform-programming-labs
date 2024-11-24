@@ -1,0 +1,23 @@
+@model IEnumerable<DatabaseApp.Models.Location>
+
+@{
+    ViewData["Title"] = "Локації";
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Подробиці</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var location in Model)
+    {
+        <tr>
+            <td>@location.LocationID</td>
+            <td>@location.LocationDetails</td>
+        </tr>
+    }
+    </tbody>
+</table>
